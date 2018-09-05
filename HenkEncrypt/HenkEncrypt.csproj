@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <Description>Encrypt strings ,byte arrays ,files and folders with HenkEncrypt. It is easy to use and you can use it with AES  and the other symmetric algorithms.
 Look for a example here: https://github.com/GHenkje/HenkEncrypt</Description>
     <Company>HenkSharp</Company>
