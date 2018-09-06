@@ -1,6 +1,6 @@
 # HenkEncrypt
 
-example:
+This example will explain you how you can use HenkEcnrypt:
 ```cs
 using System;
 using encryption;
