@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <Description>Encrypt strings ,byte arrays ,files and folders with HenkEncrypt. It is easy to use and you can use it with AES  and the other symmetric algorithms.
+    <Description>Encrypt strings ,byte arrays ,files and folders with HenkEncrypt. It is easy to use and you can use it with AES and the other symmetric algorithms.
 Look for a example here: https://github.com/GHenkje/HenkEncrypt</Description>
     <Company>HenkSharp</Company>
     <Authors>Henkje</Authors>
@@ -11,9 +11,9 @@ Look for a example here: https://github.com/GHenkje/HenkEncrypt</Description>
     <Copyright>Copyright (c) 2018 henkje</Copyright>
     <PackageTags>Encryption, AES, TrippleDes, Des, FileEncryption, FolderEncryption</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.2</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
-    <Version>1.0.0.2</Version>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
+    <Version>1.0.0.3</Version>
     <RepositoryUrl>https://github.com/GHenkje/HenkEncrypt/tree/master/HenkEncrypt</RepositoryUrl>
   </PropertyGroup>
 
