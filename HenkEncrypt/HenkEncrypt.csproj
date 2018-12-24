@@ -3,7 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <Description>Encrypt strings ,byte arrays ,files and folders with HenkEncrypt. It is easy to use and you can use it with AES and the other symmetric algorithms.
-Look for a example here: https://github.com/GHenkje/HenkEncrypt</Description>
+Look for a example here: https://github.com/GHenkje/HenkEncrypt
+
+HenkEncrypt can be used to encrypt strings, byte arrays, files and folders.
+HenkEncrypt is easy to use and advanced, it can be used with AES and the other symmetric algorithms.
+Look for a example at my github: https://github.com/GHenkje/HenkEncrypt</Description>
     <Company>HenkSharp</Company>
     <Authors>Henkje</Authors>
     <PackageLicenseUrl>https://github.com/GHenkje/HenkEncrypt/blob/master/LICENSE</PackageLicenseUrl>
