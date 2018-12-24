@@ -16,7 +16,7 @@ namespace encryption
             else { return key.GetBytes(KeySize); }
         }
 
-        public static void Encrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, string Password, string Salt = "HenkEncryptSalt", int Iterations = 10000, int KeySize = 0, int BufferSize = 1048576) { Encrypt(Algorithm, InputPath, OutputPath, CreateKey(Algorithm, Password, Salt, Iterations, KeySize), BufferSize); }
+        public static void Encrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, string Password, string Salt = "HenkEncryptSalt", int Iterations = 10000, int KeySize = 0, int BufferSize = 1048576) => Encrypt(Algorithm, InputPath, OutputPath, CreateKey(Algorithm, Password, Salt, Iterations, KeySize), BufferSize);
         public static void Encrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, byte[] Key, int BufferSize = 1048576)
         {
             ZipFile.CreateFromDirectory(InputPath, OutputPath + ".Temp");
@@ -31,20 +31,18 @@ namespace encryption
                 {
                     using (FileStream InputStream = new FileStream(OutputPath + ".Temp", FileMode.Open))
                     {
-                        byte[] buffer = new byte[BufferSize];
-                        int read;
+                        byte[] Buffer = new byte[BufferSize];
+                        int Read;
 
-                        while ((read = InputStream.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            cs.Write(buffer, 0, read);
-                        }
+                        while ((Read = InputStream.Read(Buffer, 0, Buffer.Length)) > 0)
+                            cs.Write(Buffer, 0, Read);
                     }
                 }
             }
             File.Delete(OutputPath + ".Temp");
         }
 
-        public static void Decrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, string Password, string Salt = "HenkEncryptSalt", int Iterations = 10000, int KeySize = 0, int BufferSize = 1048576) { Decrypt(Algorithm, InputPath, OutputPath, CreateKey(Algorithm, Password, Salt, Iterations, KeySize), BufferSize); }
+        public static void Decrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, string Password, string Salt = "HenkEncryptSalt", int Iterations = 10000, int KeySize = 0, int BufferSize = 1048576) => Decrypt(Algorithm, InputPath, OutputPath, CreateKey(Algorithm, Password, Salt, Iterations, KeySize), BufferSize);
         public static void Decrypt(SymmetricAlgorithm Algorithm, string InputPath, string OutputPath, byte[] Key, int BufferSize = 1048576)
         {
             using (FileStream InputStream = new FileStream(InputPath, FileMode.Open))
@@ -59,13 +57,11 @@ namespace encryption
                 {
                     using (FileStream OutputStream = new FileStream(OutputPath + ".Temp", FileMode.Create))
                     {
-                        int read;
-                        byte[] buffer = new byte[BufferSize];
+                        int Read;
+                        byte[] Buffer = new byte[BufferSize];
 
-                        while ((read = cs.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            OutputStream.Write(buffer, 0, read);
-                        }
+                        while ((Read = cs.Read(Buffer, 0, Buffer.Length)) > 0)
+                            OutputStream.Write(Buffer, 0, Read);
                     }
                 }
             }
