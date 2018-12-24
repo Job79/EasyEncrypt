@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 
-namespace HenkTcp
+namespace encryption
 {
     public static class Encryption
     {

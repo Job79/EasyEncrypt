@@ -15,9 +15,9 @@ Look for a example at my github: https://github.com/GHenkje/HenkEncrypt</Descrip
     <Copyright>Copyright (c) 2018 henkje</Copyright>
     <PackageTags>Encryption, AES, TrippleDes, Des, FileEncryption, FolderEncryption</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.4</AssemblyVersion>
-    <FileVersion>1.0.0.4</FileVersion>
-    <Version>1.0.0.4</Version>
+    <AssemblyVersion>1.0.0.5</AssemblyVersion>
+    <FileVersion>1.0.0.5</FileVersion>
+    <Version>1.0.0.5</Version>
     <RepositoryUrl>https://github.com/GHenkje/HenkEncrypt/tree/master/HenkEncrypt</RepositoryUrl>
   </PropertyGroup>
 
