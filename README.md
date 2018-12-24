@@ -2,7 +2,7 @@
 HenkEncrypt can be used to encrypt strings, byte arrays, files and folders.
 HenkEncrypt is easy to use and advanced, it can be used with AES and the other symmetric algorithms.
 
-This example will explain you how you can use HenkEcnrypt:
+This example will explain how to use HenkEcnrypt:
 ```cs
 using System;
 using encryption;
