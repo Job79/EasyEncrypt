@@ -90,3 +90,6 @@ namespace ExampleHenkEncrypt
     }
 }
 ```
+
+# contributing
+Contact me at discord(henkje#0033) or send my a email(henkje@pm.me).
