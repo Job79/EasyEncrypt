@@ -9,7 +9,7 @@ Look for a example at my github: https://github.com/GHenkje/HenkEncrypt</Descrip
     <Authors>Henkje</Authors>
     <PackageLicenseUrl>https://github.com/GHenkje/HenkEncrypt/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/GHenkje/HenkEncrypt</PackageProjectUrl>
-    <Copyright>Copyright (c) 2018 henkje</Copyright>
+    <Copyright>Copyright (c) 2019 henkje</Copyright>
     <PackageTags>Encryption, AES, TrippleDes, Des, FileEncryption, FolderEncryption</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.0.6</AssemblyVersion>

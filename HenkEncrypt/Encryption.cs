@@ -1,5 +1,5 @@
 /* HenkEncrypt
- * Copyright (C) 2018  henkje (henkje@pm.me)
+ * Copyright (C) 2019  henkje (henkje@pm.me)
  * 
  * MIT license
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -15,7 +15,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 
-namespace encryption
+namespace HenkEncrypt
 {
     public static class Encryption
     {
@@ -23,9 +23,9 @@ namespace encryption
         {
             if (Salt.Length < 8) throw new Exception("Salt is too short.");
 
-            Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(Password, Encoding.UTF8.GetBytes(Salt), Iterations);
-            if (KeySize <= 0) { return key.GetBytes(Algorithm.Key.Length); }
-            else { return key.GetBytes(KeySize); }
+            Rfc2898DeriveBytes Key = new Rfc2898DeriveBytes(Password, Encoding.UTF8.GetBytes(Salt), Iterations);
+            if (KeySize <= 0) { return Key.GetBytes(Algorithm.Key.Length); }
+            else { return Key.GetBytes(KeySize); }
         }
 
         public static string Encrypt(SymmetricAlgorithm Algorithm, string Text, string Password, string Salt = "HenkEncryptSalt", int Iterations = 10000, int KeySize = 0) => Encrypt(Algorithm, Text, CreateKey(Algorithm, Password, Salt, Iterations, KeySize));
