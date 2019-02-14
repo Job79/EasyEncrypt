@@ -70,7 +70,7 @@ namespace EasyEncrypt
         }
 
         /// <summary>
-        /// Encrypt a string with UTF8.
+        /// Encrypt a string and decode with UTF8.
         /// </summary>
         /// <param name="Text">Text to encrypt</param>
         /// <returns>Encrypted text(base64 string)</returns>
@@ -108,7 +108,7 @@ namespace EasyEncrypt
         }
 
         /// <summary>
-        /// Decrypt a string with UTF8.
+        /// Decrypt a string and decode with UTF8.
         /// </summary>
         /// <param name="Text">Text to decrypt</param>
         /// <returns>Decrypted text(string encoded with UTF8)</returns>
