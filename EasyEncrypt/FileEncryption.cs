@@ -19,7 +19,7 @@ namespace EasyEncrypt
     public class FileEncryption
     {
         /// <summary>
-        /// Algorithm for encryption/decryption.
+        /// Algorithm for encryption and decryption data.
         /// </summary>
         private SymmetricAlgorithm _Algorithm;
 

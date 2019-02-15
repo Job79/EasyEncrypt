@@ -20,8 +20,8 @@ namespace EasyEncrypt
     public class Encryption
     {
         /// <summary>
-        /// Algorithm for encryption/decryption.
-        /// </summary>
+        /// Algorithm for encryption and decryption data.
+        /// </summary> 
         private SymmetricAlgorithm _Algorithm;
 
         /// <summary>
