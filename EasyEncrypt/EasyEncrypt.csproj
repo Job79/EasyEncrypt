@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Version>1.0.1.1</Version>
+    <Version>1.0.1.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Library that makes encrypting strings, byte arrays and files easy. Supports Aes, TripleDES, (.net framework only) Des, RC2 and Rijndael.</Description>
+    <Description>Library that makes encrypting strings, byte arrays and files easy. Supports Aes, TripleDES, (.net framework only) Des, RC2 and Rijndael. Has good documentation.</Description>
     <Authors>Henkje</Authors>
     <Company>HenkSharp</Company>
     <Copyright>Copyright (C) 2019 henkje</Copyright>
@@ -13,10 +13,10 @@
     <RepositoryUrl>https://github.com/GHenkje/EasyEncrypt</RepositoryUrl>
     <PackageTags>Encryption, FileEncryption, Cryptography, Securety, Protection, HenkEncrypt, Aes, TripleDES, Des, RC2, Rijndael</PackageTags>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>EasyEncryption.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>EasyEncrypt.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
-    <PackageReleaseNotes>- Changed comments</PackageReleaseNotes>
+    <PackageReleaseNotes>- Changed decription</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
