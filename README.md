@@ -1,7 +1,6 @@
 # EasyEncrypt
-EasyEncrypt is a library that makes cryptography easy.
-Supports strings, byte arrays and files.
-Supports the algorithms Aes, TripleDES, (.net framework only) Des, RC2 and Rijndael. 
+Library that makes encrypting strings, byte arrays and files easy.
+Supports Aes, TripleDES, (.net framework only) Des, RC2 and Rijndael. Has good documentation.
 
 # Security
 EasyEncrypt uses a random IV.
