@@ -128,5 +128,12 @@ namespace EasyEncrypt
                 }
             }
         }
+
+        /// <summary>
+        /// Return the current key.
+        /// </summary>
+        /// <returns>Encryption key</returns>
+        public byte[] GetKey()
+            => _Algorithm.Key;
     }
 }

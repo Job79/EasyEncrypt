@@ -126,7 +126,7 @@ namespace EasyEncrypt
         /// Decrypt byte[].
         /// </summary>
         /// <param name="Data">Data to decrypt</param>
-        /// <returns></returns>
+        /// <returns>Decrypted data</returns>
         public byte[] Decrypt(byte[] Data)
         {
             if (Data == null) throw new ArgumentException("Could not encrypt data: Data can't be null.");
@@ -145,6 +145,13 @@ namespace EasyEncrypt
                 }
             }
         }
+
+        /// <summary>
+        /// Return the current key.
+        /// </summary>
+        /// <returns>Encryption key</returns>
+        public byte[] GetKey()
+            => _Algorithm.Key;
 
         /*static members*/
         /// <summary>
