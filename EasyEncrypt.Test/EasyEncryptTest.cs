@@ -1,3 +1,24 @@
+/* EasyEncrypt.Test
+ * 
+ * Copyright (c) 2019 henkje
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,50 +32,50 @@ namespace EasyEncrypt.Test
         [TestMethod]
         public void TestEncryption()
         {
-            const string INPUT = "test";
-            const string PASSWORD = "Password";
-            const string SALT = "SALT1234567";
+            const string input = "input";
+            const string password = "Password";
+            const string salt = "12345678";
 
-            SymmetricAlgorithm Algorithm = TripleDES.Create();
-            Algorithm.Key = Encryption.CreateKey(Algorithm, PASSWORD, SALT);
-            string Encrypted = new Encryption(Algorithm).Encrypt(INPUT);
-            string Decrypted = new Encryption(Algorithm).Decrypt(Encrypted);
+            SymmetricAlgorithm algorithm = TripleDES.Create();
+            algorithm.Key = Encryption.CreateKey(algorithm, password, salt);
+            string encrypted = new Encryption(algorithm).Encrypt(input);
+            string decrypted = new Encryption(algorithm).Decrypt(encrypted);
 
-            Assert.AreEqual(INPUT, Decrypted);
+            Assert.AreEqual(input, decrypted);
 
-            Encrypted = new Encryption(Algorithm, PASSWORD, SALT).Encrypt(INPUT);
-            Decrypted = new Encryption(Algorithm, PASSWORD, SALT).Decrypt(Encrypted);
+            encrypted = new Encryption(algorithm, password, salt).Encrypt(input);
+            decrypted = new Encryption(algorithm, password, salt).Decrypt(encrypted);
 
-            Assert.AreEqual(INPUT, Decrypted);
+            Assert.AreEqual(input, decrypted);
 
-            Encrypted = new Encryption(Algorithm, PASSWORD, SALT).Encrypt(INPUT, Encoding.Unicode);
-            Decrypted = new Encryption(Algorithm, PASSWORD, SALT).Decrypt(Encrypted, Encoding.Unicode);
+            encrypted = new Encryption(algorithm, password, salt).Encrypt(input, Encoding.Unicode);
+            decrypted = new Encryption(algorithm, password, salt).Decrypt(encrypted, Encoding.Unicode);
 
-            Assert.AreEqual(INPUT, Decrypted);
+            Assert.AreEqual(input, decrypted);
         }
 
         [TestMethod]
         public void TestFileEncryption()
         {
-            const string INPUTFILE1 = @"";
-            const string OUTPUTFILE1 = @"";
+            const string inputFile1 = @"";
+            const string outputFile1 = @"";
 
-            const string INPUTFILE2 = OUTPUTFILE1;
-            const string OUTPUTFILE2 = @"";
+            const string inputFile2 = outputFile1;
+            const string outputFile2 = @"";
 
-            const string PASSWORD = "Password";
-            const string SALT = "SALT1234567";
+            const string password = "Password";
+            const string salt = "SALT1234567";
 
-            SymmetricAlgorithm Algorithm = Aes.Create();
+            SymmetricAlgorithm algorithm = Aes.Create();
 
-            new FileEncryption(Algorithm,PASSWORD,SALT).Encrypt(INPUTFILE1,OUTPUTFILE1);
-            new FileEncryption(Algorithm, PASSWORD, SALT).Decrypt(INPUTFILE2,OUTPUTFILE2);
+            new FileEncryption(algorithm, password,salt).Encrypt(inputFile1,outputFile1);
+            new FileEncryption(algorithm, password, salt).Decrypt(inputFile2,outputFile2);
 
-            Assert.AreEqual(new FileInfo(INPUTFILE1).Length, new FileInfo(OUTPUTFILE2).Length);
+            Assert.AreEqual(new FileInfo(inputFile1).Length, new FileInfo(outputFile2).Length);
 
-            File.Delete(OUTPUTFILE1);
-            File.Delete(INPUTFILE2);
-            if(OUTPUTFILE1 != INPUTFILE2) File.Delete(OUTPUTFILE2);
+            File.Delete(outputFile1);
+            File.Delete(outputFile2);
+            if(outputFile1 != inputFile2) File.Delete(outputFile2);
         }
     }
 }

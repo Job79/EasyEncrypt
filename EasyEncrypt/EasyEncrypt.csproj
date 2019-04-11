@@ -2,22 +2,31 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.0.3.1</Version>
     <Authors>Henkje</Authors>
     <Company>HenkSharp</Company>
     <Description>Library that makes encrypting strings, byte arrays and files easy. Supports Aes, TripleDES, (.net framework only) Des, RC2 and Rijndael. EasyEncrypt has a good documentation.</Description>
     <Copyright>Copyright (C) 2019 henkje</Copyright>
-    <PackageLicenseUrl>https://github.com/GHenkje/EasyEncrypt/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/GHenkje/EasyEncrypt</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GHenkje/EasyEncrypt</RepositoryUrl>
     <PackageTags>Encryption, FileEncryption, Cryptography, Securety, Protection, HenkEncrypt, Aes, TripleDES, Des, RC2, Rijndael</PackageTags>
     <PackageReleaseNotes>- Added GetKey()
-Wich returns the current encryption key.</PackageReleaseNotes>
+Which returns the current encryption key.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>EasyEncrypt.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <AssemblyVersion>1.0.3.1</AssemblyVersion>
+    <FileVersion>1.0.3.1</FileVersion>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>MIT LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Z:\Programming\MIT LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
