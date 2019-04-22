@@ -148,9 +148,9 @@ namespace EasyEncrypt
 
                 using (CryptoStream cs = new CryptoStream(ms, algorithm.CreateDecryptor(algorithm.Key, algorithm.IV), CryptoStreamMode.Read))
                 {
-                    byte[] Decrypted = new byte[data.Length];
-                    int byteCount = cs.Read(Decrypted, 0, data.Length);
-                    return new MemoryStream(Decrypted, 0, byteCount).ToArray();
+                    byte[] decrypted = new byte[data.Length];
+                    int byteCount = cs.Read(decrypted, 0, data.Length);
+                    return new MemoryStream(decrypted, 0, byteCount).ToArray();
                 }
             }
         }
