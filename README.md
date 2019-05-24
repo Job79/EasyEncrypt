@@ -26,4 +26,4 @@ decryptedString = new Encryption(RC2.Create(), Password, Salt).Decrypt(EnryptedI
 encryptedString = new Encryption(Rijndael.Create(), Password, Salt).Encrypt(Input);
 decryptedString = new Encryption(Rijndael.Create(), Password, Salt).Decrypt(EnryptedInput);
 ```
-[Documentation](https://github.com/GHenkje/EasyEncrypt/wiki)
+# [Documentation](https://github.com/GHenkje/EasyEncrypt/wiki)
