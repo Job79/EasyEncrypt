@@ -17,6 +17,7 @@ var encrypter = new EasyEncrypt();
 // Encrypt and decrypt a string
 var encryptedString = encrypter.Encrypt("Example data");
 var decryptedString = encrypter.Decrypt(encryptedString);
+
+//! See EasyEncrypt.Examples for more 
 ```
-See EasyEncrypt.Examples for more 
 
