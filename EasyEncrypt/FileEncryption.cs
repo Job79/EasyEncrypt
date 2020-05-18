@@ -11,7 +11,7 @@ namespace EasyEncrypt
         /// </summary>
         /// <param name="encrypt"></param>
         /// <param name="fileIn">unencrypted input file</param>
-        /// <param name="fileOut">location for new encrypted file</param>
+        /// <param name="fileOut">location of new encrypted file</param>
         /// <param name="bufferSize"></param>
         public static void EncryptFile(this EasyEncrypt encrypt, string fileIn, string fileOut,
             int bufferSize = DefaultBufferSize)
