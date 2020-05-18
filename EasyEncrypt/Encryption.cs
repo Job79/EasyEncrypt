@@ -1,196 +1,144 @@
-﻿/* EasyEncrypt
- * 
- * Copyright (c) 2019 henkje
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
 namespace EasyEncrypt
 {
-    public class Encryption
+    /// <summary>
+    /// Class that provides basic encryption functionality
+    /// </summary>
+    public class EasyEncrypt : IDisposable
     {
         /// <summary>
-        /// Algorithm for encryption and decryption data.
+        /// Algorithm that is used for encrypting and decrypting data
         /// </summary> 
-        private readonly SymmetricAlgorithm algorithm;
+        public readonly SymmetricAlgorithm Algorithm;
 
         /// <summary>
-        /// Create class with an already set up algorithm.
         /// </summary>
-        /// <param name="algorithm">Algorithm wich is alreay set up properly</param>
-        public Encryption(SymmetricAlgorithm algorithm)
-            => this.algorithm = algorithm ?? throw new ArgumentException("Invalid algorithm, algorithm is null.");
-        /// <summary>
-        /// Create class with an algorithm and overide the key for the selected algorithm.
-        /// </summary>
-        /// <param name="algorithm">New algorithm</param>
-        /// <param name="key">Generated key</param>
-        public Encryption(SymmetricAlgorithm algorithm, byte[] key)
+        /// <param name="algorithm">algorithm used for encryption, Aes if null</param>
+        /// <param name="key">key used for encryption, secure random if null</param>
+        /// <exception cref="ArgumentException">can't create EasyEncrypt: key is invalid</exception>
+        public EasyEncrypt(SymmetricAlgorithm algorithm = null, byte[] key = null)
         {
-            this.algorithm = algorithm ?? throw new ArgumentException("Invalid algorithm, algorithm is null.");
-            if (key == null) throw new ArgumentException("Invalid key, key is null.");
-            if (!this.algorithm.ValidKeySize(key.Length * 8)) throw new ArgumentException("Invalid key, key has an invalid size.");
-            this.algorithm.Key = key;
-        }
-        /// <summary>
-        /// Create class and create a new key for the passed algorithm.
-        /// </summary>
-        /// <param name="algorithm">New algorithm</param>
-        /// <param name="password">Password, used to generate key</param>
-        /// <param name="salt">Salt, used to make generated key more random(min 8 characters)</param>
-        /// <param name="iterations">Rounds PBKDF2 will make to genarete a key</param>
-        public Encryption(SymmetricAlgorithm algorithm, string password, string salt, int iterations = 10000)
-        {
-            this.algorithm = algorithm ?? throw new ArgumentException("Invalid algorithm, algorithm is null.");
-            this.algorithm.Key = CreateKey(this.algorithm, password, salt, iterations);
-        }
-        /// <summary>
-        /// Create class and create a new key for the passed algorithm with a fixed keysize.
-        /// </summary>
-        /// <param name="algorithm">new algorithm</param>
-        /// <param name="keySize">Keysize in bits(8 bits = 1 byte)</param>
-        /// <param name="password">Password, used to generate key</param>
-        /// <param name="salt">Salt, used to make generated key more random(min 8 characters)</param>
-        /// <param name="iterations">Rounds PBKDF2 will make to genarete a key</param>
-        public Encryption(SymmetricAlgorithm algorithm, int keySize, string password, string salt, int iterations = 10000)
-        {
-            this.algorithm = algorithm ?? throw new ArgumentException("Invalid algorithm, algorithm is null.");
-            if (!this.algorithm.ValidKeySize(keySize)) throw new ArgumentException("Invalid key, key has an invalid size.");
-            this.algorithm.Key = CreateKey(keySize, password, salt, iterations);
+            Algorithm = algorithm ?? Aes.Create();
+            if (key == null) Algorithm.GenerateKey();
+            else if (Algorithm.ValidKeySize(key.Length * 8)) Algorithm.Key = key;
+            else throw new ArgumentException("Can't create EasyEncrypt: key is invalid");
         }
 
         /// <summary>
-        /// Encrypt a string and decode with UTF8.
         /// </summary>
-        /// <param name="text">Text to encrypt</param>
-        /// <returns>Encrypted text(base64 string)</returns>
-        public string Encrypt(string text)
-            => Convert.ToBase64String(Encrypt(Encoding.UTF8.GetBytes(text ?? throw new ArgumentException("Could not decrypt text: Text can't be null."))));
+        /// <param name="password"></param>
+        /// <param name="salt">random string to make key generation more random</param>
+        /// <param name="algorithm">algorithm used for encryption, Aes if null</param>
+        /// <param name="keysize">size of generated key, greatest key for algorithm if null</param>
+        /// <exception cref="ArgumentException">can't create EasyEncrypt: key is invalid</exception>
+        public EasyEncrypt(string password, string salt, SymmetricAlgorithm algorithm = null, int? keysize = null)
+        {
+            Algorithm = algorithm ?? Aes.Create();
+            keysize ??= Algorithm.LegalKeySizes[0].MaxSize;
+            Algorithm.Key = CreateKey(password, salt, (int) keysize);
+        }
+
         /// <summary>
-        /// Encrypt a string.
+        /// Encrypt a string 
         /// </summary>
-        /// <param name="text">Text to encrypt</param>
-        /// <param name="encoder">Encoding used to convert string to byte[]</param>
-        /// <returns>Encrypted text(base64 string)</returns>
-        public string Encrypt(string text, Encoding encoder)
-            => Convert.ToBase64String(Encrypt(encoder.GetBytes(text ?? throw new ArgumentException("Could not decrypt text: Text can't be null."))));
+        /// <param name="text"></param>
+        /// <param name="encoder">encoding type (Default: UTF8)</param>
+        /// <returns>IV + encrypted text</returns>
+        public string Encrypt(string text, Encoding encoder = null)
+            => Convert.ToBase64String(Encrypt(
+                (encoder ?? Encoding.UTF8).GetBytes(
+                    text ?? throw new ArgumentException("Can't encrypt text: text is null"))));
+
         /// <summary>
-        /// Encrypt a byte[].
+        /// Encrypt a byte[] 
         /// </summary>
-        /// <param name="data">Data to encrypt</param>
-        /// <returns>Encrypted data(byte[])</returns>
+        /// <param name="data"></param>
+        /// <returns>IV + encrypted data</returns>
+        /// <exception cref="Exception">can't encrypt data: data is null</exception>
         public byte[] Encrypt(byte[] data)
         {
-            if (data == null) throw new Exception("Could not encrypt data: Data can't be null.");
+            if (data == null) throw new ArgumentException("Can't encrypt data: data is null");
 
-            algorithm.GenerateIV();//Genarate new random IV.
+            using var ms = new MemoryStream();
+            Algorithm.GenerateIV();
+            ms.Write(Algorithm.IV, 0, Algorithm.IV.Length);
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                ms.Write(algorithm.IV, 0, algorithm.IV.Length);//Write IV to ms(first 16 bytes)
-                using (CryptoStream cs = new CryptoStream(ms, algorithm.CreateEncryptor(algorithm.Key, algorithm.IV), CryptoStreamMode.Write))
-                {
-                    cs.Write(data, 0, data.Length);
-                    cs.FlushFinalBlock();
-                }
-                return ms.ToArray();
-            }
+            using var cs = new CryptoStream(ms, Algorithm.CreateEncryptor(Algorithm.Key, Algorithm.IV),
+                CryptoStreamMode.Write);
+            cs.Write(data, 0, data.Length);
+            cs.FlushFinalBlock();
+
+            return ms.ToArray();
         }
 
         /// <summary>
-        /// Decrypt a string and decode with UTF8.
+        /// Decrypt a string 
         /// </summary>
-        /// <param name="text">Text to decrypt</param>
-        /// <returns>Decrypted text(string encoded with UTF8)</returns>
-        public string Decrypt(string text)
-            => Encoding.UTF8.GetString(Decrypt(Convert.FromBase64String(text ?? throw new ArgumentException("Could not decrypt text: Text can't be null."))));
+        /// <param name="text"></param>
+        /// <param name="encoder">encoding type (Default: UTF8)</param>
+        /// <returns>IV + decrypted data</returns>
+        public string Decrypt(string text, Encoding encoder = null)
+            => (encoder ?? Encoding.UTF8).GetString(Decrypt(
+                Convert.FromBase64String(
+                    text ?? throw new ArgumentException("Can't decrypt data: text is null"))));
+
         /// <summary>
-        /// Decrypt a string.
+        /// Decrypt a byte[]
         /// </summary>
-        /// <param name="text">Text to decrypt</param>
-        /// <param name="encoder">Encoding used to convert byte[] to string</param>
-        /// <returns>Decrypted text(string encoded with Encoder)</returns>
-        public string Decrypt(string text, Encoding encoder)
-            => encoder.GetString(Decrypt(Convert.FromBase64String(text ?? throw new ArgumentException("Could not decrypt text: Text can't be null."))));
-        /// <summary>
-        /// Decrypt byte[].
-        /// </summary>
-        /// <param name="data">Data to decrypt</param>
-        /// <returns>Decrypted data</returns>
+        /// <param name="data"></param>
+        /// <returns>IV + decrypted data</returns>
+        /// <exception cref="ArgumentException">can't decrypt data: data is invalid</exception>
         public byte[] Decrypt(byte[] data)
         {
-            if (data == null) throw new ArgumentException("Could not encrypt data: Data can't be null.");
+            if (data == null || data.Length <= 4) throw new ArgumentException("Can't decrypt data: data is invalid");
 
-            using (MemoryStream ms = new MemoryStream(data))
-            {
-                byte[] IV = new byte[algorithm.IV.Length];
-                ms.Read(IV, 0, IV.Length);//Get IV from ms(first 16 bytes)
-                algorithm.IV = IV;
+            byte[] iv = new byte[Algorithm.IV.Length];
+            Buffer.BlockCopy(data, 0, iv, 0, iv.Length);
+            Algorithm.IV = iv;
 
-                using (CryptoStream cs = new CryptoStream(ms, algorithm.CreateDecryptor(algorithm.Key, algorithm.IV), CryptoStreamMode.Read))
-                {
-                    byte[] decrypted = new byte[data.Length];
-                    int byteCount = cs.Read(decrypted, 0, data.Length);
-                    return new MemoryStream(decrypted, 0, byteCount).ToArray();
-                }
-            }
+            using var ms = new MemoryStream();
+            using var cs = new CryptoStream(ms, Algorithm.CreateDecryptor(Algorithm.Key, Algorithm.IV),
+                CryptoStreamMode.Write);
+            cs.Write(data, iv.Length, data.Length - iv.Length);
+            cs.FlushFinalBlock(); // ToDo: Remove or replace with .Flush
+
+            return ms.ToArray();
         }
 
         /// <summary>
-        /// Return the current key.
+        /// Return the current key
         /// </summary>
-        /// <returns>Encryption key</returns>
-        public byte[] GetKey()
-            => algorithm.Key;
+        /// <returns>encryption key</returns>
+        public byte[] GetKey() => Algorithm.Key;
 
-        /*static members*/
         /// <summary>
-        /// Create a new encryption key with PBKDF2 and a selected keysize.
+        /// Dispose algorithm 
         /// </summary>
-        /// <param name="keySize">Keysize in bits(8 bits = 1 byte)</param>
-        /// <param name="password">Password, used to generate key</param>
-        /// <param name="salt">Salt, used to make generated key more random(min 8 characters)</param>
-        /// <param name="iterations">Rounds PBKDF2 will make to genarete a key</param>
-        /// <returns>Encryption key</returns>
-        public static byte[] CreateKey(int keySize, string password, string salt, int iterations = 10000)
+        public void Dispose()
         {
-            if (keySize <= 0) throw new ArgumentException("Could not create key: Invalid KeySize.");
-            else if (salt.Length < 8) throw new ArgumentException("Could not create key: Salt is to short.");
-            else if (string.IsNullOrEmpty(password)) throw new ArgumentException("Could not create key: Password can't be empty.");
-            else if (iterations <= 0) throw new ArgumentException("Could not create key: Invalid Iterations count.");
-
-            return new Rfc2898DeriveBytes(password,
-                Encoding.UTF8.GetBytes(salt),//Convert salt to byte[]
-                iterations).GetBytes(keySize / 8);
+            Algorithm?.Dispose();
         }
+
         /// <summary>
-        /// Create a new encryption key with PBKDF2 for the selected Algorithm.
+        /// Generate new key
         /// </summary>
-        /// <param name="algorithm">Algorithm is used to get the keysize</param>
-        /// <param name="password">Password, used to generate key</param>
-        /// <param name="salt">Salt, used to make generated key more random(min 8 characters)</param>
-        /// <param name="iterations">Rounds PBKDF2 will make to genarete a key</param>
-        /// <returns>Encryption key</returns>
-        public static byte[] CreateKey(SymmetricAlgorithm algorithm, string password, string salt, int iterations = 10000)
-            => CreateKey(algorithm.LegalKeySizes[0].MaxSize, password, salt, iterations);
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="keysize">keysize in bits</param>
+        /// <returns>generated key</returns>
+        /// <exception cref="ArgumentException">can't create key: {reason}</exception>
+        public static byte[] CreateKey(string password, string salt, int keysize)
+        {
+            if (string.IsNullOrEmpty(password)) throw new ArgumentException("Can't create key: password is empty");
+            if (salt == null || salt.Length < 8) throw new ArgumentException("Can't create key: salt is too short");
+            if (keysize <= 0) throw new ArgumentException("Can't create key: keysize is invalid");
+
+            using var rfc = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(salt));
+            return rfc.GetBytes(keysize / 8);
+        }
     }
 }
