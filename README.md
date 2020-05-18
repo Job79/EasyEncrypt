@@ -9,8 +9,6 @@
   <a>Wrapper around the SymmetricAlgorithm class that makes encrypting strings, arrays, streams and files simple<a/>
   <br/><br/>
 </p>
-
-Example of aes encryption, see EasyEncrypt.Examples for more examples
 ```cs
 // Create encrypter with default algorithm (AES) and generate a new random key
 var encrypter = new EasyEncrypt();
@@ -19,4 +17,5 @@ var encrypter = new EasyEncrypt();
 var encryptedString = encrypter.Encrypt("Example data");
 var decryptedString = encrypter.Decrypt(encryptedString);
 ```
+See EasyEncrypt.Examples for more 
 
