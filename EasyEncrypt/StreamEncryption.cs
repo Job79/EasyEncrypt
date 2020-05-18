@@ -8,6 +8,14 @@ namespace EasyEncrypt
     {
         private const int DefaultBufferSize = 1024;
         
+        /// <summary>
+        /// Encrypt a stream
+        /// </summary>
+        /// <param name="encrypt"></param>
+        /// <param name="inputStream">readable stream with unencrypted data</param>
+        /// <param name="outputStream">writable stream for encrypted data</param>
+        /// <param name="bufferSize"></param>
+        /// <exception cref="ArgumentException"></exception>
         public static void EncryptStream(this EasyEncrypt encrypt, Stream inputStream, Stream outputStream,
             int bufferSize = DefaultBufferSize)
         {
@@ -31,6 +39,14 @@ namespace EasyEncrypt
            
         }
 
+        /// <summary>
+        /// Decrypt a stream 
+        /// </summary>
+        /// <param name="encrypt"></param>
+        /// <param name="inputStream">readable stream with encrypted data</param>
+        /// <param name="outputStream">writable stream for decrypted data</param>
+        /// <param name="bufferSize"></param>
+        /// <exception cref="ArgumentException"></exception>
         public static void DecryptStream(this EasyEncrypt encrypt, Stream inputStream, Stream outputStream,
             int bufferSize = DefaultBufferSize)
         {

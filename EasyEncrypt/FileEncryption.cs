@@ -6,6 +6,13 @@ namespace EasyEncrypt
     {
         private const int DefaultBufferSize = 1024;
 
+        /// <summary>
+        /// Encrypt a file 
+        /// </summary>
+        /// <param name="encrypt"></param>
+        /// <param name="fileIn">unencrypted input file</param>
+        /// <param name="fileOut">location for new encrypted file</param>
+        /// <param name="bufferSize"></param>
         public static void EncryptFile(this EasyEncrypt encrypt, string fileIn, string fileOut,
             int bufferSize = DefaultBufferSize)
         {
@@ -15,6 +22,13 @@ namespace EasyEncrypt
             encrypt?.EncryptStream(fileInStream, fileOutStream, bufferSize);
         }
 
+        /// <summary>
+        /// Decrypt a file 
+        /// </summary>
+        /// <param name="encrypt">encrypted input file</param>
+        /// <param name="fileIn">location of new decrypted file</param>
+        /// <param name="fileOut"></param>
+        /// <param name="bufferSize"></param>
         public static void DecryptFile(this EasyEncrypt encrypt, string fileIn, string fileOut,
             int bufferSize = DefaultBufferSize)
         {
