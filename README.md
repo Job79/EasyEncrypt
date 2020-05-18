@@ -9,6 +9,7 @@
   <a>Wrapper around the SymmetricAlgorithm class that makes encrypting strings, arrays, streams and files simple<a/>
   <br/><br/>
 </p>
+  
 ```cs
 // Create encrypter with default algorithm (AES) and generate a new random key
 var encrypter = new EasyEncrypt();
