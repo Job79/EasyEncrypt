@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EasyEncrypt.Examples
+namespace EasyEncrypt2.Examples
 {
     class Program
     {
