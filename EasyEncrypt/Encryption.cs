@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace EasyEncrypt
+namespace EasyEncrypt2
 {
     /// <summary>
     /// Class that provides basic encryption functionality

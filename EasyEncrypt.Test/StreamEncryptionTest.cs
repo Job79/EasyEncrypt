@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
-namespace EasyEncrypt.Test
+namespace EasyEncrypt2.Test
 {
     public class StreamEncryptionTest
     {

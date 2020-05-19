@@ -1,7 +1,7 @@
 using System.IO;
 using NUnit.Framework;
 
-namespace EasyEncrypt.Test
+namespace EasyEncrypt2.Test
 {
     public class FileEncryptionTest
     {

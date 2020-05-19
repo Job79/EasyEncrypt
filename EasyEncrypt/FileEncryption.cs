@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace EasyEncrypt
+namespace EasyEncrypt2
 {
     public static class FileEncryption
     {
