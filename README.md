@@ -2,7 +2,7 @@
   <b>EasyEncrypt</b>
   <br/>
   <img src="https://img.shields.io/badge/License-MIT-green.svg">
-  <img src="https://img.shields.io/badge/version-2.0.0.0-green.svg">
+  <img src="https://img.shields.io/badge/version-2.1.0.0-green.svg">
   <img src="https://img.shields.io/badge/build-passing-green.svg">
   <br/>
   <br/>
