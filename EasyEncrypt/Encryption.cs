@@ -104,7 +104,7 @@ namespace EasyEncrypt2
             using var cs = new CryptoStream(ms, Algorithm.CreateDecryptor(Algorithm.Key, Algorithm.IV),
                 CryptoStreamMode.Write);
             cs.Write(data, iv.Length, data.Length - iv.Length);
-            cs.FlushFinalBlock(); // ToDo: Remove or replace with .Flush
+            cs.FlushFinalBlock();
 
             return ms.ToArray();
         }
