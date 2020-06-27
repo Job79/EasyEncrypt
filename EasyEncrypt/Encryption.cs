@@ -67,8 +67,8 @@ namespace EasyEncrypt2
             Algorithm.GenerateIV();
             ms.Write(Algorithm.IV, 0, Algorithm.IV.Length);
 
-            using var cs = new CryptoStream(ms, Algorithm.CreateEncryptor(Algorithm.Key, Algorithm.IV),
-                CryptoStreamMode.Write);
+            using var encrypter = Algorithm.CreateEncryptor(Algorithm.Key, Algorithm.IV);
+            using var cs = new CryptoStream(ms, encrypter, CryptoStreamMode.Write);
             cs.Write(data, 0, data.Length);
             cs.FlushFinalBlock();
 
@@ -101,8 +101,8 @@ namespace EasyEncrypt2
             Algorithm.IV = iv;
 
             using var ms = new MemoryStream();
-            using var cs = new CryptoStream(ms, Algorithm.CreateDecryptor(Algorithm.Key, Algorithm.IV),
-                CryptoStreamMode.Write);
+            using var decrypter = Algorithm.CreateDecryptor(Algorithm.Key, Algorithm.IV);
+            using var cs = new CryptoStream(ms, decrypter, CryptoStreamMode.Write);
             cs.Write(data, iv.Length, data.Length - iv.Length);
             cs.FlushFinalBlock();
 

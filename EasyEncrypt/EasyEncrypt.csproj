@@ -15,7 +15,7 @@
     <FileVersion>2.1.0.0</FileVersion>
     <LangVersion>latest</LangVersion>
     <Company>Job79</Company>
-    <PackageVersion>2.2.0.0</PackageVersion>
+    <PackageVersion>2.2.0.1</PackageVersion>
     <Title>EasyEncrypt</Title>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>EasyEncrypt2</RootNamespace>
