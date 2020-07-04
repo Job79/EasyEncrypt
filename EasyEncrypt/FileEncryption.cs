@@ -19,7 +19,7 @@ namespace EasyEncrypt2
             using var fileInStream = new FileStream(fileIn, FileMode.Open);
             using var fileOutStream = new FileStream(fileOut, FileMode.Create);
 
-            encrypt?.EncryptStream(fileInStream, fileOutStream,false, bufferSize);
+            encrypt?.EncryptStream(fileInStream, fileOutStream, bufferSize);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace EasyEncrypt2
             using var fileInStream = new FileStream(fileIn, FileMode.Open);
             using var fileOutStream = new FileStream(fileOut, FileMode.Create);
 
-            encrypt?.DecryptStream(fileInStream, fileOutStream,false, bufferSize);
+            encrypt?.DecryptStream(fileInStream, fileOutStream, bufferSize);
         }
     }
 }

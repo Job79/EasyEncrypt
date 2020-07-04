@@ -14,11 +14,10 @@ namespace EasyEncrypt2
         /// <param name="encrypt"></param>
         /// <param name="inputStream">readable stream with unencrypted data</param>
         /// <param name="outputStream">writable stream for encrypted data</param>
-        /// <param name="leaveOpen">determines whether to dispose input stream</param>
         /// <param name="bufferSize"></param>
         /// <exception cref="ArgumentException"></exception>
         public static void EncryptStream(this EasyEncrypt encrypt, Stream inputStream, Stream outputStream,
-            bool leaveOpen = true, int bufferSize = DefaultBufferSize)
+            int bufferSize = DefaultBufferSize)
         {
             if (encrypt == null) throw new ArgumentException("Can't encrypt data: encrypt class is null");
             if (inputStream == null || !inputStream.CanRead)
@@ -30,7 +29,7 @@ namespace EasyEncrypt2
             outputStream.Write(encrypt.Algorithm.IV, 0, encrypt.Algorithm.IV.Length);
 
             using var encrypter = encrypt.Algorithm.CreateEncryptor(encrypt.Algorithm.Key, encrypt.Algorithm.IV);
-            using var cs = new CryptoStream(inputStream, encrypter, CryptoStreamMode.Read, leaveOpen);
+            using var cs = new CryptoStream(inputStream, encrypter, CryptoStreamMode.Read);
 
             var buffer = new byte[bufferSize];
             int read;
@@ -45,11 +44,10 @@ namespace EasyEncrypt2
         /// <param name="encrypt"></param>
         /// <param name="inputStream">readable stream with encrypted data</param>
         /// <param name="outputStream">writable stream for decrypted data</param>
-        /// <param name="leaveOpen">determines whether to dispose input stream</param>
         /// <param name="bufferSize"></param>
         /// <exception cref="ArgumentException"></exception>
         public static void DecryptStream(this EasyEncrypt encrypt, Stream inputStream, Stream outputStream,
-            bool leaveOpen = true, int bufferSize = DefaultBufferSize)
+            int bufferSize = DefaultBufferSize)
         {
             if (encrypt == null) throw new ArgumentException("Can't encrypt data: encrypt class is null");
             if (inputStream == null || !inputStream.CanRead)
@@ -62,7 +60,7 @@ namespace EasyEncrypt2
             encrypt.Algorithm.IV = iv;
 
             using var decrypter = encrypt.Algorithm.CreateDecryptor(encrypt.Algorithm.Key, encrypt.Algorithm.IV);
-            using var cs = new CryptoStream(inputStream, decrypter, CryptoStreamMode.Read, leaveOpen);
+            using var cs = new CryptoStream(inputStream, decrypter, CryptoStreamMode.Read);
 
             var buffer = new byte[bufferSize];
             int read;
